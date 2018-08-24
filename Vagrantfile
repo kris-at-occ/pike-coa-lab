@@ -7,7 +7,7 @@ servers=[
     :box => "ubuntu/xenial64",
     :ram => 8192,
     :cpu => 2,
-    :script => "bash /vagrant/node_setup.sh"
+    :script => "bash /vagrant/virtualbox-guest-setup.sh"
   }
 ]
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
