@@ -27,5 +27,5 @@ openstack subnet create --project "demo" --network demo-net --subnet-range $DEMO
 
 # Create demo-ns-router
 openstack router create --project demo --description "Demo North-South Router" demo-ns-router
-openstack router set --external-network provider demo-ns-router
+openstack router set --external-gateway provider demo-ns-router
 openstack router add subnet demo-ns-router provider
