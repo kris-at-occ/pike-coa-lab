@@ -6,7 +6,8 @@ export LC_ALL="C"
 
 # Set all Global Variables, defined in vars.sh
 cp /vagrant/vars.sh /home/vagrant
-cp /vagrant/install-coa.sh /home/vagrant
+cp /vagrant/install-openstack.sh /home/vagrant
+cp /vagrant/configure-lab.sh /home/vagrant
 source /home/vagrant/vars.sh
 
 DEBIAN_FRONTEND=noninteractive apt-get update
