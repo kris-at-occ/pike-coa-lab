@@ -1,7 +1,7 @@
 # pike-coa-lab
 Install Learning Lab for COA Exam Preparation
 
-This **COA Lab** is based on OpenStack Pike Release and includes all components necessary to practice [COA Exam requirements] (https://www.openstack.org/coa/requirements/).
+This **COA Lab** is based on OpenStack Pike Release and includes all components necessary to practice [COA Exam requirements](https://www.openstack.org/coa/requirements/).
 
 **COA Lab** can be set up with:
 
