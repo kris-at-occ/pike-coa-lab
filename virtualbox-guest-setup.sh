@@ -11,7 +11,7 @@ source /home/vagrant/vars.sh
 
 DEBIAN_FRONTEND=noninteractive apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-DEBIAN_FRONTEND=noninteractive apt-get install -y crudini rpl
+DEBIAN_FRONTEND=noninteractive apt-get install -y crudini
 
 crudini --set /etc/default/grub "" GRUB_CMDLINE_LINUX '"net.ifnames=0 biosdevname=0"'
 update-grub
