@@ -49,7 +49,7 @@ ADMIN_PASS=$COMMON_PASSWORD
 DEMO_PASS=$COMMON_PASSWORD
 
 # NOVNC Proxy base URL for VirtualBox with Forwarded Ports 6080->6080
-NOVNCPROXY_BASE_URL=http://localhost:6080/vnc_auto.html
+NOVNCPROXY_BASE_URL="http://localhost:6080/vnc_auto.html"
 
 # Swift devices
 
