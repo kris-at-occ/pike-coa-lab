@@ -41,7 +41,7 @@ openstack quota set --volumes 1 bugs
 openstack network create --project "bugs" incognito
 openstack subnet create --project "bugs" --network incognito --subnet-range $INCOGNITO_SUBNET_RANGE --allocation-pool start=$INCOGNITO_SUBNET_ALLOCATION_START,end=$INCOGNITO_SUBNET_ALLOCATION_END --dns-nameserver $INCOGNITO_SUBNET_DNS_SERVER --gateway $INCOGNITO_SUBNET_GATEWAY incognito_subnet
 openstack volume create --project "bugs" --size 1 --description "Why is it here?" surprise
-openstack server create --project "bugs" --image "cirros" --flavor "m1.tiny" --network "incognito" bad-luck
+openstack server create --os-project-name "bugs" --os-username "sherlock" --os-password $SHERLOCK_PASS --image "cirros" --flavor "m1.tiny" --network "incognito" bad-luck
 
 # Prepare configuration for demo Project
 source demo-openrc
