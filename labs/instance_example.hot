@@ -1,0 +1,68 @@
+heat_template_version: newton
+
+description: Simple template to deploy a single compute instance
+
+parameters:
+  net_name:
+    type: string
+    label: Network Name
+    description: Name of the Network, to which the Instance will be connected
+    constraints:
+      - custom_constraint: neutron.network
+  key_name:
+    type: string
+    label: Keypair Name
+    description: Name of the Keypair to be injected into the Instance
+    constraints:
+      - custom_constraint: nova.keypair
+  flavor:
+    type: string
+    label: Flavor
+    description: Name of the Instance Flavor
+    constraints:
+      - custom_constraint: nova.flavor
+  image:
+    type: string
+    label: Image
+    description: Name of Instance Image
+    constraints:
+      - custom_constraint: glance.image
+  vol_size:
+    type: number
+    label: Volume Size (GB)
+    description: External Volume Size in GB
+    constraints:
+      - range: { min: 1, max: 5 }
+
+resources:
+  my_volume:
+    type: OS::Cinder::Volume
+    properties:
+      size: { get_param: vol_size }
+
+  volume_attachement:
+    type: OS::Cinder::VolumeAttachment
+    properties:
+      volume_id: { get_resource: my_volume }
+      instance_uuid: { get_resource: my_instance }
+
+  my_instance:
+    type: OS::Nova::Server
+    properties:
+      key_name: { get_param: key_name }
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      networks: [{network: { get_param: net_name } }]
+      user_data_format: RAW
+      user_data: |
+        #!/bin/sh
+        fdisk -l
+        mkfs.ext3 /dev/vdb
+        mount /dev/vdb /mnt
+        date >> /mnt/file.txt
+
+outputs:
+  console_urls:
+    description: Console URL of the New Instance
+    value:
+      get_attr: [my_instance, console_urls, novnc]
