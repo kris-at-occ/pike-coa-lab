@@ -856,7 +856,9 @@ service apache2 restart
 
 echo "Starting Horizon Installation"
 apt install -y openstack-dashboard
-sed -i "s/127.0.0.1/$CONTROLLER_IP/g" /etc/openstack-dashboard/local_settings.py
+# Horizon is accessed from Host system via http://localhost:8080/horizon/, so we keep OPENSTACK_HOSTS="127.0.0.1" - this is the reason of not executing line below
+#sed -i "s/127.0.0.1/$CONTROLLER_IP/g" /etc/openstack-dashboard/local_settings.py
+sed -i "/^OPENSTACK_KEYSTONE_URL/s/v2.0/v3/" /etc/openstack-dashboard/local_settings.py
 sed -i "/^CACHES =/i SESSION_ENGINE = 'django.contrib.sessions.backends.cache'" /etc/openstack-dashboard/local_settings.py
 sed -i "/^#OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT/i OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = True" /etc/openstack-dashboard/local_settings.py
 sed -i '/^#OPENSTACK_API_VERSIONS =/i OPENSTACK_API_VERSIONS = { "identity": 3 ,"image": 2 ,"volume": 2, }' /etc/openstack-dashboard/local_settings.py
@@ -864,5 +866,7 @@ sed -i "s/^#OPENSTACK_KEYSTONE_DEFAULT_DOMAIN/OPENSTACK_KEYSTONE_DEFAULT_DOMAIN/
 sed -i "s/_member_/user/" /etc/openstack-dashboard/local_settings.py
 # Extra, undocumented line to enable Volume Backup option in Horizon
 sed -i "s/'enable_backup': False/'enable_backup': True/" /etc/openstack-dashboard/local_settings.py
+# Let's change Horizon theme from Ubuntu to default
+sed -i "/^DEFAULT_THEME/s/ubuntu/default/" /etc/openstack-dashboard/local_settings.py
 grep -q 'WSGIApplicationGroup %{GLOBAL}' /etc/apache2/conf-available/openstack-dashboard.conf || sed -i '/^WSGIProcessGroup/a WSGIApplicationGroup %{GLOBAL}' /etc/apache2/conf-available/openstack-dashboard.conf
 service apache2 reload
