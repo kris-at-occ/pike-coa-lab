@@ -35,7 +35,7 @@ openstack container create container1
 
 # Set up bugs Project - 2>&1 > /dev/null
 openstack project create --domain default --description 'Lab 18 - Project "bugs"' bugs
-openstack user create --description "The wisest of them all" --project "bugs" --password $SHERLOCK_PASSWORD sherlock
+openstack user create --description "The wisest of them all" --project "bugs" --password $SHERLOCK_PASS sherlock
 openstack role add --project "bugs" --user "sherlock" user
 openstack quota set --volumes 1 bugs
 openstack network create --project "bugs" incognito
