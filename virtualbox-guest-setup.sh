@@ -9,7 +9,7 @@ cp /vagrant/vars.sh /home/vagrant
 cp /vagrant/install-openstack.sh /home/vagrant
 cp /vagrant/configure-lab.sh /home/vagrant
 mkdir -p /home/vagrant/labs
-cp /vagrant/labs/* home/vagrant/labs
+cp /vagrant/labs/* /home/vagrant/labs
 source /home/vagrant/vars.sh
 
 DEBIAN_FRONTEND=noninteractive apt-get update
