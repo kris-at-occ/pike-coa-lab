@@ -1,7 +1,7 @@
 #! /bin/bash
 
-# Debug options to enable bash trace with output to file descriptor 2 (common error output)
-BASH_XTRACEFD="2"
+# Debug options to enable bash trace with output to file descriptor 1 (common output)
+BASH_XTRACEFD="1"
 PS4='$LINENO: '
 set -x
 
