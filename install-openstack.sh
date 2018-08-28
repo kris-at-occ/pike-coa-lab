@@ -1,5 +1,11 @@
 #! /bin/bash
 
+# Debuging options for this script, tracing output is sent to file descriptor 2 (where typical error messages go)
+BASH_XTRACEFD="2"
+PS4='$LINENO: '
+set -x
+
+
 export LC_TYPE="UTF-8"
 export LANG="en-US.UTF-8"
 export LC_ALL="C"
