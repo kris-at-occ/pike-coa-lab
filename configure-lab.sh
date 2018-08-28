@@ -1,5 +1,10 @@
 #! /bin/bash
 
+# Debug options to enable bash trace with output to file descriptor 2 (common error output)
+BASH_XTRACEFD="2"
+PS4='$LINENO: '
+set -x
+
 export LC_TYPE="UTF-8"
 export LANG="en-US.UTF-8"
 export LC_ALL="C"
@@ -34,6 +39,7 @@ openstack router add subnet public-ns-router public_subnet
 openstack container create container1
 
 # Set up bugs Project
+set +x
 openstack project create --domain default --description 'Lab 18 - Project "bugs"' bugs 2>&1 > /dev/null
 openstack user create --description "The wisest of them all" --project "bugs" --password $SHERLOCK_PASS sherlock 2>&1 > /dev/null
 openstack role add --project "bugs" --user "sherlock" user 2>&1 > /dev/null
@@ -41,8 +47,9 @@ openstack quota set --volumes 1 bugs 2>&1 > /dev/null
 openstack network create --project "bugs" incognito 2>&1 > /dev/null
 openstack subnet create --project "bugs" --network incognito --subnet-range $INCOGNITO_SUBNET_RANGE --allocation-pool start=$INCOGNITO_SUBNET_ALLOCATION_START,end=$INCOGNITO_SUBNET_ALLOCATION_END --dns-nameserver $INCOGNITO_SUBNET_DNS_SERVER --gateway $INCOGNITO_SUBNET_GATEWAY incognito_subnet 2>&1 > /dev/null
 openstack volume create --os-project-name "bugs" --os-username "sherlock" --os-password $SHERLOCK_PASS --size 1 --description "Why is it here?" surprise 2>&1 > /dev/null
-CIRROS_ID=$(openstack image list -f value -c ID) 2>&1 > /dev/null
-nova --os-project-name "bugs" --os-username "sherlock" --os-password "openstack" boot --block-device source=image,id=$CIRROS_ID,dest=volume,size=1,shutdown=remove,bootindex=0 --flavor "m1.tiny" --nic net-name="incognito" bad-luck 2>&1 > /dev/null
+#CIRROS_ID=$(openstack image list -f value -c ID) 2>&1 > /dev/null
+nova --os-project-name "bugs" --os-username "sherlock" --os-password "openstack" boot --block-device source=image,id=$(openstack image list -f value -c ID -c Name | grep cirros | cut -f1 -d' '),dest=volume,size=1,shutdown=remove,bootindex=0 --flavor "m1.tiny" --nic net-name="incognito" bad-luck 2>&1 > /dev/null
+set -x
 
 # Prepare configuration for demo Project
 source demo-openrc
