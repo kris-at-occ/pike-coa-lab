@@ -866,6 +866,7 @@ apt install -y openstack-dashboard
 #sed -i "s/127.0.0.1/$CONTROLLER_IP/g" /etc/openstack-dashboard/local_settings.py
 sed -i "/^OPENSTACK_KEYSTONE_URL/s/v2.0/v3/" /etc/openstack-dashboard/local_settings.py
 sed -i "/^CACHES =/i SESSION_ENGINE = 'django.contrib.sessions.backends.cache'" /etc/openstack-dashboard/local_settings.py
+rpl "127.0.0.1:11211" "$CONTROLLER_IP:11211" /etc/openstack-dashboard/local_settings.py
 sed -i "/^#OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT/i OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = True" /etc/openstack-dashboard/local_settings.py
 sed -i '/^#OPENSTACK_API_VERSIONS =/i OPENSTACK_API_VERSIONS = { "identity": 3 ,"image": 2 ,"volume": 2, }' /etc/openstack-dashboard/local_settings.py
 sed -i "s/^#OPENSTACK_KEYSTONE_DEFAULT_DOMAIN/OPENSTACK_KEYSTONE_DEFAULT_DOMAIN/" /etc/openstack-dashboard/local_settings.py
