@@ -876,4 +876,4 @@ sed -i "s/'enable_backup': False/'enable_backup': True/" /etc/openstack-dashboar
 # Let's change Horizon theme from Ubuntu to default
 sed -i "/^DEFAULT_THEME/s/ubuntu/default/" /etc/openstack-dashboard/local_settings.py
 grep -q 'WSGIApplicationGroup %{GLOBAL}' /etc/apache2/conf-available/openstack-dashboard.conf || sed -i '/^WSGIProcessGroup/a WSGIApplicationGroup %{GLOBAL}' /etc/apache2/conf-available/openstack-dashboard.conf
-service apache2 reload
+service apache2 restart
