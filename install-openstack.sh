@@ -70,7 +70,7 @@ rabbitmqctl set_permissions openstack ".*" ".*" ".*"
 
 echo "Starting installation of Memcached for Ubuntu"
 
-apt install -y memcached python-memcache
+apt install -y memcached python-memcache rpl
 rpl "127.0.0.1" "$CONTROLLER_IP" /etc/memcached.conf
 service memcached restart
 
