@@ -472,7 +472,7 @@ openstack endpoint create --region RegionOne object-store admin http://$CONTROLL
 apt-get install -y swift swift-proxy python-swiftclient python-keystoneclient python-keystonemiddleware memcached
 
 mkdir -p /etc/swift
-curl -o /etc/swift/proxy-server.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/proxy-server.conf-sample?h=stable/pike
+curl -o /etc/swift/proxy-server.conf https://opendev.org/openstack/swift/raw/branch/stable/pike/etc/proxy-server.conf-sample
 
 crudini --set /etc/swift/proxy-server.conf DEFAULT bind_port 8080
 crudini --set /etc/swift/proxy-server.conf DEFAULT user swift
@@ -547,9 +547,9 @@ service rsync start
 
 apt-get install -y swift swift-account swift-container swift-object
 
-curl -o /etc/swift/account-server.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/account-server.conf-sample?h=stable/pike
-curl -o /etc/swift/container-server.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/container-server.conf-sample?h=stable/pike
-curl -o /etc/swift/object-server.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/object-server.conf-sample?h=stable/pike
+curl -o /etc/swift/account-server.conf https://opendev.org/openstack/swift/raw/branch/stable/pike/etc/account-server.conf-sample
+curl -o /etc/swift/container-server.conf https://opendev.org/openstack/swift/raw/branch/stable/pike/etc/container-server.conf-sample
+curl -o /etc/swift/object-server.conf https://opendev.org/openstack/swift/raw/branch/stable/pike/etc/object-server.conf-sample
 
 crudini --set /etc/swift/account-server.conf DEAFULT bind_ip $CONTROLLER_IP
 crudini --set /etc/swift/account-server.conf DEAFULT bind_port 6202
@@ -616,7 +616,7 @@ swift-ring-builder object.builder rebalance
 # from Swift Finalize installation for Ubuntu https://docs.openstack.org/swift/pike/install/finalize-installation-ubuntu-debian.html
 
 echo "Finalizing Swift installation"
-curl -o /etc/swift/swift.conf https://git.openstack.org/cgit/openstack/swift/plain/etc/swift.conf-sample?h=stable/pike
+curl -o /etc/swift/swift.conf https://opendev.org/openstack/swift/raw/branch/stable/pike/etc/swift.conf-sample
 crudini --set /etc/swift/swift.conf swift-hash swift_hash_path_prefix Open
 crudini --set /etc/swift/swift.conf swift-hash swift_hash_path_suffix Stack
 crudini --set /etc/swift/swift.conf storage-policy:0 name Policy-0
